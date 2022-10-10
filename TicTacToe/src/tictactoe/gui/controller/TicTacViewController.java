@@ -168,6 +168,12 @@ public class TicTacViewController implements Initializable
                 }
             }
         }
+        //check draw
+        /*
+        if(moveCount == (Math.pow(n, 2) - 1)){
+            //report draw
+        }
+         */
         return false;
     }
 }
