@@ -17,7 +17,7 @@ public interface IGameModel
      *
      * @return int Id of the next player.
      */
-    public int getNextPlayer();
+    public int getNextPlayer(String lastPlayer);
 
     /**
      * Attempts to let the current player play at the given coordinates. If the

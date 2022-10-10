@@ -45,12 +45,12 @@ public class TicTacViewController implements Initializable
             Integer col = GridPane.getColumnIndex((Node) event.getSource());
             int r = (row == null) ? 0 : row;
             int c = (col == null) ? 0 : col;
-            int player = game.getNextPlayer();
-            if (game.play(c, r))
+            int player = game.getNextPlayer("X"); //Implement
+            if (game.play(c, r)) //Check if you can play, on that position
             {
-                if (game.isGameOver())
+                if (game.isGameOver()) //- Check if win
                 {
-                    int winner = game.getWinner();
+                    int winner = game.getWinner(); //- Check who is winner
                     displayWinner(winner);
                 }
                 else
@@ -58,20 +58,20 @@ public class TicTacViewController implements Initializable
                     Button btn = (Button) event.getSource();
                     String xOrO = player == 0 ? "X" : "O";
                     btn.setText(xOrO);
-                    setPlayer();
+                    setPlayer(xOrO); // Change O and X
                 }
             }
         } catch (Exception e)
         {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()); // If something doesn't work
         }
     }
 
     @FXML
     private void handleNewGame(ActionEvent event)
     {
-        game.newGame();
-        setPlayer();
+        game.newGame(); // this
+        setPlayer("X");
         clearBoard();
     }
 
@@ -79,15 +79,15 @@ public class TicTacViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         game = new GameBoard();
-        setPlayer();
+        setPlayer("X");
     }
 
-    private void setPlayer()
+    private void setPlayer(String player)
     {
-        lblPlayer.setText(TXT_PLAYER + game.getNextPlayer());
+        lblPlayer.setText(TXT_PLAYER + game.getNextPlayer(player));
     }
 
-    private void displayWinner(int winner)
+    private void displayWinner(int winner) // Make sure it works
     {
         String message = "";
         switch (winner)

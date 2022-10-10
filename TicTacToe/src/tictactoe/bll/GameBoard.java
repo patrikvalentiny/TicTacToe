@@ -17,9 +17,10 @@ public class GameBoard implements IGameModel
      *
      * @return int Id of the next player.
      */
-    public int getNextPlayer()
+    public int getNextPlayer(String lastPlayer)
     {
-        //TODO Implement this method
+        if(lastPlayer == "O")
+            return 1;
         return 0;
     }
 
