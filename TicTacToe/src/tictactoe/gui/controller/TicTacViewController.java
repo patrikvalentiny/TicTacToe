@@ -6,6 +6,7 @@
 package tictactoe.gui.controller;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +38,7 @@ public class TicTacViewController implements Initializable
     
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
-
+    private static final int gameSize = 3;
 
     @FXML
     private void handleButtonAction(ActionEvent event)
@@ -61,9 +62,11 @@ public class TicTacViewController implements Initializable
                     String xOrO = lblPlayer.getText().split(" ")[1];
                     btn.setText(xOrO);
                     btn.setDisable(true);
+                    System.out.println(checkIfWin(r, c, xOrO));
                     setPlayer(game.getNextPlayer(xOrO));
                 }
             }
+
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
@@ -114,5 +117,57 @@ public class TicTacViewController implements Initializable
             btn.setDisable(false);
         }
     }
-
+    private boolean checkIfWin(int x, int y, String buttonString){
+        String[][] buttonArray = new String[3][3];
+        buttonArray[0][0] = btn1.getText();
+        buttonArray[0][1] = btn2.getText();
+        buttonArray[0][2] = btn3.getText();
+        buttonArray[1][0] = btn4.getText();
+        buttonArray[1][1] = btn5.getText();
+        buttonArray[1][2] = btn6.getText();
+        buttonArray[2][0] = btn7.getText();
+        buttonArray[2][1] = btn8.getText();
+        buttonArray[2][2] = btn9.getText();
+        // check row
+        for (int i = 0; i < gameSize; i++) {
+            if (!buttonArray[x][i].equals(buttonString)) {
+                break;
+            }
+            if (i == gameSize -1 ){
+                return true;
+            }
+        }
+        // check column
+        for (int i = 0; i < gameSize; i++) {
+            if (!buttonArray[i][y].equals(buttonString)) {
+                break;
+            }
+            if (i == gameSize - 1){
+                return true;
+            }
+        }
+        // check diagonal
+        if (x == y){
+            for (int i = 0; i < gameSize; i++) {
+                if(!buttonArray[i][i].equals(buttonString)){
+                    break;
+                }
+                if(i == gameSize-1){
+                    return true;
+                }
+            }
+        }
+        // check anti-diagonal
+        if(x + y == gameSize - 1){
+            for(int i = 0; i < gameSize; i++){
+                if(buttonArray[i][(gameSize - 1) - i].equals(buttonString)){
+                    break;
+                }
+                if(i == gameSize-1){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
