@@ -13,15 +13,15 @@ public class GameBoard implements IGameModel
 {
 
     /**
-     * Returns 0 for player 0, 1 for player 1.
+     * Returns X for player X, O for player O.
      *
-     * @return int Id of the next player.
+     * @return String Placer of the next player.
      */
-    public int getNextPlayer(String lastPlayer)
+    public String getNextPlayer(String lastPlayer)
     {
-        if(lastPlayer == "O")
-            return 1;
-        return 0;
+        if(lastPlayer.charAt(0) == 'X')
+            return "O";
+        return "X";
     }
 
     /**

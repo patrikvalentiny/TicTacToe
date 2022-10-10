@@ -38,6 +38,7 @@ public class TicTacViewController implements Initializable
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
 
+
     @FXML
     private void handleButtonAction(ActionEvent event)
     {
@@ -47,25 +48,25 @@ public class TicTacViewController implements Initializable
             Integer col = GridPane.getColumnIndex((Node) event.getSource());
             int r = (row == null) ? 0 : row;
             int c = (col == null) ? 0 : col;
-            int player = game.getNextPlayer("X"); //Implement
-            if (game.play(c, r)) //Check if you can play, on that position
+            if (game.play(c, r))
             {
-                if (game.isGameOver()) //- Check if win
+                if (game.isGameOver())
                 {
-                    int winner = game.getWinner(); //- Check who is winner
+                    int winner = game.getWinner();
                     displayWinner(winner);
                 }
                 else
                 {
                     Button btn = (Button) event.getSource();
-                    String xOrO = player == 0 ? "X" : "O";
+                    String xOrO = lblPlayer.getText().split(" ")[1];
                     btn.setText(xOrO);
-                    setPlayer(xOrO); // Change O and X
+                    btn.setDisable(true);
+                    setPlayer(game.getNextPlayer(xOrO));
                 }
             }
         } catch (Exception e)
         {
-            System.out.println(e.getMessage()); // If something doesn't work
+            System.out.println(e.getMessage());
         }
     }
 
@@ -86,7 +87,7 @@ public class TicTacViewController implements Initializable
 
     private void setPlayer(String player)
     {
-        lblPlayer.setText(TXT_PLAYER + game.getNextPlayer(player));
+        lblPlayer.setText(TXT_PLAYER + player);
     }
 
     private void displayWinner(int winner) // Make sure it works
@@ -110,6 +111,7 @@ public class TicTacViewController implements Initializable
         {
             Button btn = (Button) n;
             btn.setText("");
+            btn.setDisable(false);
         }
     }
 
