@@ -11,7 +11,7 @@ package tictactoe.bll;
  */
 public interface IGameModel
 {
-
+    public int getWinner(int x, int y, int gameSize, String buttonString, String[][] buttonArray);
     /**
      * Returns 0 for player 0, 1 for player 1.
      *
@@ -38,13 +38,6 @@ public interface IGameModel
      * @return true if the game is over, else it will retun false.
      */
     public boolean isGameOver();
-
-    /**
-     * Gets the id of the winner, -1 if its a draw or if the game is still running.
-     *
-     * @return int id of winner, or -1 if draw or if gameOver() == false.
-     */
-    public int getWinner();
 
     /**
      * Resets the game to a new game state.

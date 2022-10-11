@@ -18,7 +18,7 @@ public class GameBoard implements IGameModel
      *
      * @return int id of winner, or -1 if draw.
      */
-    public static int getWinner(int x, int y, int gameSize, String buttonString, String[][] buttonArray) {
+    public int getWinner(int x, int y, int gameSize, String buttonString, String[][] buttonArray) {
         // check row
         for (int i = 0; true; i++) {
             if (!buttonArray[x][i].equals(buttonString)) {
@@ -113,12 +113,6 @@ public class GameBoard implements IGameModel
         }
 
     }
-
-    @Override
-    public int getWinner() {
-        return 0;
-    }
-
     /**
      * Resets the game to a new game state.
      */
