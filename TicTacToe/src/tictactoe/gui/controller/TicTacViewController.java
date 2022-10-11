@@ -28,9 +28,6 @@ import tictactoe.bll.IGameModel;
  */
 public class TicTacViewController implements Initializable
 {
-
-    @FXML
-    private Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9;
     @FXML
     private Label lblPlayer;
 
@@ -46,6 +43,7 @@ public class TicTacViewController implements Initializable
     private int moveCount = 0;
     // gameState is 0 for game running, 1 for found a winner, -1 for a draw
     private static int gameState = 0;
+    private String[][] buttonArray = new String[3][3];
 
     @FXML
     private void handleButtonAction(ActionEvent event)
@@ -75,8 +73,8 @@ public class TicTacViewController implements Initializable
                         btn.setGraphic(Xview);
                     else
                         btn.setGraphic(Oview);
-                    //btn.setText(xOrO);
                     btn.setDisable(true);
+                    buttonArrayCreator(r, c, xOrO);
                     setGameState(checkIfWin(r, c, xOrO));
                     System.out.println(gameState);
                     setPlayer(game.getNextPlayer(xOrO));
@@ -102,6 +100,11 @@ public class TicTacViewController implements Initializable
     {
         game = new GameBoard();
         setPlayer("X");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                buttonArray[i][j] = "";
+            }
+        }
     }
 
     private void setPlayer(String player)
@@ -135,17 +138,6 @@ public class TicTacViewController implements Initializable
     }
     public int checkIfWin(int x, int y, String buttonString){
         moveCount++;
-
-        String[][] buttonArray = new String[3][3];
-        buttonArray[0][0] = btn1.getText();
-        buttonArray[0][1] = btn2.getText();
-        buttonArray[0][2] = btn3.getText();
-        buttonArray[1][0] = btn4.getText();
-        buttonArray[1][1] = btn5.getText();
-        buttonArray[1][2] = btn6.getText();
-        buttonArray[2][0] = btn7.getText();
-        buttonArray[2][1] = btn8.getText();
-        buttonArray[2][2] = btn9.getText();
         // check row
         for (int i = 0; true; i++) {
             if (!buttonArray[x][i].equals(buttonString)) {
@@ -199,5 +191,8 @@ public class TicTacViewController implements Initializable
 
     public void setGameState(int gameState) {
         TicTacViewController.gameState = gameState;
+    }
+    private void buttonArrayCreator(int r, int c, String player){
+        this.buttonArray[r][c] = player;
     }
 }
