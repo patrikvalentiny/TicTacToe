@@ -13,14 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Font;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.Text;
 import tictactoe.bll.GameBoard;
 import tictactoe.bll.IGameModel;
 
@@ -201,6 +198,6 @@ public class TicTacViewController implements Initializable
     }
 
     public void setGameState(int gameState) {
-        this.gameState = gameState;
+        TicTacViewController.gameState = gameState;
     }
 }
