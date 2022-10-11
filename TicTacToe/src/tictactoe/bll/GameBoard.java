@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 package tictactoe.bll;
-
-import tictactoe.gui.controller.TicTacViewController;
-
 /**
  *
  * @author Stegger
  */
 public class GameBoard implements IGameModel
 {
+    public int gameOver = -2;
     /**
-     * Gets the id of the winner, -1 if its a draw.
-     *
-     * @return int id of winner, or -1 if draw.
+        * Attempts to let the current player play at the given coordinates. It the
+     * attempt is succesfull the current player has ended his turn and it is the
+     * next players turn.
+        * this method will return an integer that we use to identify game state and the winner.
+            *  1 is X, 0 is O, -1 if it is a draw, and -2 simply shows the game is still running.
      */
     public int getWinner(int x, int y, int gameSize, String buttonString, String[][] buttonArray) {
         // check row
@@ -25,7 +25,8 @@ public class GameBoard implements IGameModel
                 break;
             }
             if (i == gameSize - 1) {
-                return buttonString.equals("X") ? 1 : 0;
+                gameOver = buttonString.equals("X") ? 1 : 0;
+                return gameOver;
             }
         }
         // check column
@@ -34,7 +35,8 @@ public class GameBoard implements IGameModel
                 break;
             }
             if (i == gameSize - 1) {
-                return buttonString.equals("X") ? 1 : 0;
+                gameOver = buttonString.equals("X") ? 1 : 0;
+                return gameOver;
             }
         }
         // check diagonal
@@ -44,7 +46,8 @@ public class GameBoard implements IGameModel
                     break;
                 }
                 if (i == gameSize - 1) {
-                    return buttonString.equals("X") ? 1 : 0;
+                    gameOver = buttonString.equals("X") ? 1 : 0;
+                    return gameOver;
                 }
             }
         }
@@ -55,7 +58,8 @@ public class GameBoard implements IGameModel
                     break;
                 }
                 if (i == gameSize - 1) {
-                    return buttonString.equals("X") ? 1 : 0;
+                    gameOver = buttonString.equals("X") ? 1 : 0;
+                    return gameOver;
                 }
             }
         }
@@ -66,11 +70,13 @@ public class GameBoard implements IGameModel
                     break;
                 }
                 if (i == 2 && j == 2) {
-                    return -1;
+                    gameOver = -1;
+                    return gameOver;
                 }
             }
         }
-        return -2;
+        gameOver = -2;
+        return gameOver;
     }
 
     /**
@@ -85,29 +91,17 @@ public class GameBoard implements IGameModel
         return "X";
     }
 
-    /**
-     * Attempts to let the current player play at the given coordinates. It the
-     * attempt is succesfull the current player has ended his turn and it is the
-     * next players turn.
-     *
-     * @param col column to place a marker in.
-     * @param row row to place a marker in.
-     * @return true if the move is accepted, otherwise false. If gameOver == true
-     * this method will always return false.
-     */
+
 
     public boolean isGameOver()
     {
-        int g = TicTacViewController.getGameState();
-        if (g == 1)
-        {
-            return true;
-        }
-        {
-            return false;
-        }
+        int g = gameOver;
+
+        return g != -2;
+
 
     }
+
     /**
      * Resets the game to a new game state.
      */
