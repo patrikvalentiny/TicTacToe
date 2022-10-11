@@ -88,11 +88,13 @@ public class TicTacViewController implements Initializable
         gameState = 0;
         game.newGame(); // this
         setPlayer("X");
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 buttonArray[i][j] = "";
             }
         }
+
         clearBoard();
     }
 

@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import tictactoe.gui.TicTacToe;
 
 import java.io.IOException;
 
@@ -19,25 +20,25 @@ public class MenuScreenController extends Application {
     Button btnPVP;
 
     @FXML
-    private void actionPVP(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("views/MenuScreen.fxml"));
+    private void actionPVE(ActionEvent actionEvent) throws IOException {
+        Parent root = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml")).load();
         Stage stage = new Stage();
-        stage.setTitle("PVP Tic Tack Toe");
         stage.setScene(new Scene(root));
-        //stage.centerOnScreen();
-        //stage.setResizable(false);
+        ((Stage) btnPVE.getScene().getWindow()).close();
+        stage.show();
+    }
+    @FXML
+    private void actionPVP(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        ((Stage) btnPVP.getScene().getWindow()).close();
         stage.show();
     }
 
-    @FXML
-    private void actionPVE()throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("views/TicTacView.fxml"));
-        Stage window = (Stage) btnPVE.getScene().getWindow();
-        window.setScene(new Scene(root));
-    }
-
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws IOException {
 
     }
 }
