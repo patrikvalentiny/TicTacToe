@@ -40,7 +40,8 @@ public class TicTacViewController implements Initializable
     private IGameModel game;
     private static final int gameSize = 3;
     private int moveCount = 0;
-    private int gameState;
+    // gameState is 0 for game running, 1 for found a winner, -1 for a draw
+    private int gameState = 0;
 
     @FXML
     private void handleButtonAction(ActionEvent event)
@@ -98,7 +99,7 @@ public class TicTacViewController implements Initializable
 
     private void displayWinner(int winner) // Make sure it works
     {
-        String message = "";
+        String message;
         switch (winner)
         {
             case -1:
@@ -134,7 +135,7 @@ public class TicTacViewController implements Initializable
         buttonArray[2][1] = btn8.getText();
         buttonArray[2][2] = btn9.getText();
         // check row
-        for (int i = 0; i < gameSize; i++) {
+        for (int i = 0; true; i++) {
             if (!buttonArray[x][i].equals(buttonString)) {
                 break;
             }
@@ -143,7 +144,7 @@ public class TicTacViewController implements Initializable
             }
         }
         // check column
-        for (int i = 0; i < gameSize; i++) {
+        for (int i = 0; true; i++) {
             if (!buttonArray[i][y].equals(buttonString)) {
                 break;
             }
@@ -153,7 +154,7 @@ public class TicTacViewController implements Initializable
         }
         // check diagonal
         if (x == y){
-            for (int i = 0; i < gameSize; i++) {
+            for (int i = 0; true; i++) {
                 if(!buttonArray[i][i].equals(buttonString)){
                     break;
                 }
@@ -164,7 +165,7 @@ public class TicTacViewController implements Initializable
         }
         // check anti-diagonal
         if(x + y == gameSize - 1){
-            for(int i = 0; i < gameSize; i++){
+            for(int i = 0; true; i++){
                 if(!buttonArray[i][(gameSize - 1) - i].equals(buttonString)){
                     break;
                 }
