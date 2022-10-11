@@ -10,7 +10,8 @@ package tictactoe.bll;
  */
 public class GameBoard implements IGameModel
 {
-    public int gameOver = -2;
+    private int gameOver = -2;
+    private int moves = 0;
     /**
         * Attempts to let the current player play at the given coordinates. It the
      * attempt is succesfull the current player has ended his turn and it is the
@@ -19,6 +20,7 @@ public class GameBoard implements IGameModel
             *  1 is X, 0 is O, -1 if it is a draw, and -2 simply shows the game is still running.
      */
     public int getWinner(int x, int y, int gameSize, String buttonString, String[][] buttonArray) {
+        moves++;
         // check row
         for (int i = 0; true; i++) {
             if (!buttonArray[x][i].equals(buttonString)) {
@@ -29,6 +31,7 @@ public class GameBoard implements IGameModel
                 return gameOver;
             }
         }
+
         // check column
         for (int i = 0; true; i++) {
             if (!buttonArray[i][y].equals(buttonString)) {
@@ -39,6 +42,7 @@ public class GameBoard implements IGameModel
                 return gameOver;
             }
         }
+
         // check diagonal
         if (x == y) {
             for (int i = 0; true; i++) {
@@ -64,18 +68,10 @@ public class GameBoard implements IGameModel
             }
         }
         //check draw
-        for (int i = 0; i<3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (buttonArray[i][j].equals("")) {
-                    break;
-                }
-                if (i == 2 && j == 2) {
-                    gameOver = -1;
-                    return gameOver;
-                }
-            }
+        if (moves == Math.pow(gameSize, 2)){
+            gameOver = -1;
+            return -1;
         }
-        gameOver = -2;
         return gameOver;
     }
 
@@ -95,11 +91,7 @@ public class GameBoard implements IGameModel
 
     public boolean isGameOver()
     {
-        int g = gameOver;
-
-        return g != -2;
-
-
+        return gameOver != -2;
     }
 
     /**
@@ -107,7 +99,7 @@ public class GameBoard implements IGameModel
      */
     public void newGame()
     {
-        //TODO Implement this method
+        gameOver = -2;
     }
 
 }

@@ -41,8 +41,6 @@ public class TicTacViewController implements Initializable
     private IGameModel game;
     private static final int gameSize = 3;
     private int moveCount = 0;
-    // gameState is 0 for game running, 1 for found a winner, -1 for a draw
-    private static int gameState = 0;
     private String[][] buttonArray = new String[3][3];
 
     @FXML
@@ -55,23 +53,25 @@ public class TicTacViewController implements Initializable
                 Integer col = GridPane.getColumnIndex((Node) event.getSource());
                 int r = (row == null) ? 0 : row;
                 int c = (col == null) ? 0 : col;
+
                 Image imageX = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/X.png"));
                 Image imageO = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/O.png"));
                 ImageView Xview = new ImageView(imageX);
                 ImageView Oview = new ImageView(imageO);
+
                 Button btn = (Button) event.getSource();
                 String xOrO = lblPlayer.getText().split(" ")[1];
                 if (xOrO.charAt(0) == 'X')
                     btn.setGraphic(Xview);
                 else
                     btn.setGraphic(Oview);
-                //btn.setText(xOrO);
                 btn.setDisable(true);
+
                 buttonArrayCreator(r, c, xOrO);
                 int winner = game.getWinner(r, c, gameSize, xOrO, buttonArray);
-                setGameState(winner);
-                System.out.println(gameState);
+                System.out.println(winner);
                 setPlayer(game.getNextPlayer(xOrO));
+
                 if (game.isGameOver()) {
                     displayWinner(winner);
                 }
@@ -85,7 +85,6 @@ public class TicTacViewController implements Initializable
     @FXML
     private void handleNewGame(ActionEvent event)
     {
-        gameState = 0;
         game.newGame(); // this
         setPlayer("X");
 
@@ -113,14 +112,10 @@ public class TicTacViewController implements Initializable
     private void displayWinner(int winner) // Make sure it works
     {
         String message;
-        switch (winner)
-        {
-            case -1:
-                message = "It's a draw :-(";
-                break;
-            default:
-                message = "Player " + winner + " wins!!!";
-                break;
+        if (winner == -1){
+            message = "It's a draw :-(";
+        }else {
+            message = "Player " + winner + " wins!!!";
         }
         lblPlayer.setText(message);
     }
@@ -134,14 +129,6 @@ public class TicTacViewController implements Initializable
             btn.setGraphic(null);
             btn.setDisable(false);
         }
-    }
-
-    public static int getGameState() {
-        return gameState;
-    }
-
-    public void setGameState(int gameState) {
-        TicTacViewController.gameState = gameState;
     }
     private void buttonArrayCreator(int r, int c, String player){
         this.buttonArray[r][c] = player;
