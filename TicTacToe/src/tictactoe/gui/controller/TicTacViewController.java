@@ -74,6 +74,7 @@ public class TicTacViewController implements Initializable
 
                 if (game.isGameOver()) {
                     displayWinner(winner);
+                    disableButtons();
                 }
             }
         } catch (Exception e)
@@ -132,5 +133,15 @@ public class TicTacViewController implements Initializable
     }
     private void buttonArrayCreator(int r, int c, String player){
         this.buttonArray[r][c] = player;
+    }
+
+    private void disableButtons(){
+        for(Node n : gridPane.getChildren())
+        {
+            Button btn = (Button) n;
+            //btn.setText("");
+            //btn.setGraphic(null);
+            btn.setDisable(true);
+        }
     }
 }

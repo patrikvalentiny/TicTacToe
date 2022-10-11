@@ -100,6 +100,7 @@ public class GameBoard implements IGameModel
     public void newGame()
     {
         gameOver = -2;
+        moves = 0;
     }
 
 }
