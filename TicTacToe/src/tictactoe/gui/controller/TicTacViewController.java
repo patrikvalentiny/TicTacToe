@@ -75,7 +75,7 @@ public class TicTacViewController implements Initializable
                         btn.setGraphic(Oview);
                     btn.setDisable(true);
                     buttonArrayCreator(r, c, xOrO);
-                    setGameState(checkIfWin(r, c, xOrO));
+                    setGameState(GameBoard.getWinner(r, c, gameSize, xOrO, buttonArray));
                     System.out.println(gameState);
                     setPlayer(game.getNextPlayer(xOrO));
                 }
@@ -135,54 +135,6 @@ public class TicTacViewController implements Initializable
             btn.setText("");
             btn.setDisable(false);
         }
-    }
-    public int checkIfWin(int x, int y, String buttonString){
-        moveCount++;
-        // check row
-        for (int i = 0; true; i++) {
-            if (!buttonArray[x][i].equals(buttonString)) {
-                break;
-            }
-            if (i == gameSize -1 ){
-                return 1;
-            }
-        }
-        // check column
-        for (int i = 0; true; i++) {
-            if (!buttonArray[i][y].equals(buttonString)) {
-                break;
-            }
-            if (i == gameSize - 1){
-                return 1;
-            }
-        }
-        // check diagonal
-        if (x == y){
-            for (int i = 0; true; i++) {
-                if(!buttonArray[i][i].equals(buttonString)){
-                    break;
-                }
-                if(i == gameSize-1){
-                    return 1;
-                }
-            }
-        }
-        // check anti-diagonal
-        if(x + y == gameSize - 1){
-            for(int i = 0; true; i++){
-                if(!buttonArray[i][(gameSize - 1) - i].equals(buttonString)){
-                    break;
-                }
-                if(i == gameSize-1){
-                    return 1;
-                }
-            }
-        }
-        //check draw
-        if(moveCount == (Math.pow(gameSize, 2))){
-            return -1;
-        }
-        return 0;
     }
 
     public static int getGameState() {
