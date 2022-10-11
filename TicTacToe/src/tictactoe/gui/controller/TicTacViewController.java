@@ -91,6 +91,11 @@ public class TicTacViewController implements Initializable
     {
         game.newGame(); // this
         setPlayer("X");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                buttonArray[i][j] = "";
+            }
+        }
         clearBoard();
     }
 
@@ -98,12 +103,7 @@ public class TicTacViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         game = new GameBoard();
-        setPlayer("X");
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                buttonArray[i][j] = "";
-            }
-        }
+        handleNewGame(new ActionEvent());
     }
 
     private void setPlayer(String player)
