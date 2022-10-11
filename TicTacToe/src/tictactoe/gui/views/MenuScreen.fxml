@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="415.0" prefWidth="532.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.gui.views.MenuScreen">
+   <children>
+      <Button fx:id="btnPVE" layoutX="40.0" layoutY="119.0" mnemonicParsing="false" onAction="#actionPVE" text="Play against skynet prototype" />
+      <Button fx:id="btnPVP" layoutX="291.0" layoutY="119.0" mnemonicParsing="false" onAction="#actionPVP" text="Play against another organic being" />
+      <Label layoutX="119.0" layoutY="31.0" text="Welcome to tic tac toe!">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="184.0" layoutY="75.0" text="Select gamemode:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="242.0" fitWidth="224.0" layoutX="14.0" layoutY="158.0">
+         <image>
+            <Image url="@../images/Ai.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="195.0" fitWidth="281.0" layoutX="250.0" layoutY="158.0">
+         <image>
+            <Image url="@../images/human.png" />
+         </image>
+      </ImageView>
+      <ImageView>
+         <image>
+            <Image url="@../images/O.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="431.0">
+         <image>
+            <Image url="@../images/X.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

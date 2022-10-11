@@ -13,14 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Font;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.Text;
 import tictactoe.bll.GameBoard;
 import tictactoe.bll.IGameModel;
 
@@ -31,10 +28,6 @@ import tictactoe.bll.IGameModel;
  */
 public class TicTacViewController implements Initializable
 {
-
-
-    @FXML
-    private Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9;
     @FXML
     private Label lblPlayer;
 
@@ -48,7 +41,9 @@ public class TicTacViewController implements Initializable
     private IGameModel game;
     private static final int gameSize = 3;
     private int moveCount = 0;
-    private static int gameState;
+    // gameState is 0 for game running, 1 for found a winner, -1 for a draw
+    private static int gameState = 0;
+    private String[][] buttonArray = new String[3][3];
 
     @FXML
     private void handleButtonAction(ActionEvent event)
@@ -78,11 +73,10 @@ public class TicTacViewController implements Initializable
                         btn.setGraphic(Xview);
                     else
                         btn.setGraphic(Oview);
-                    btn.setAccessibleText(xOrO);
-                    btn.getAccessibleText();
                     //btn.setText(xOrO);
                     btn.setDisable(true);
-                    setGameState(checkIfWin(r, c, xOrO));
+                    buttonArrayCreator(r, c, xOrO);
+                    setGameState(GameBoard.getWinner(r, c, gameSize, xOrO, buttonArray));
                     System.out.println(gameState);
                     setPlayer(game.getNextPlayer(xOrO));
                 }
@@ -107,6 +101,11 @@ public class TicTacViewController implements Initializable
     {
         game = new GameBoard();
         setPlayer("X");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                buttonArray[i][j] = "";
+            }
+        }
     }
 
     private void setPlayer(String player)
@@ -116,7 +115,7 @@ public class TicTacViewController implements Initializable
 
     private void displayWinner(int winner) // Make sure it works
     {
-        String message = "";
+        String message;
         switch (winner)
         {
             case -1:
@@ -135,68 +134,8 @@ public class TicTacViewController implements Initializable
         {
             Button btn = (Button) n;
             btn.setText("");
-            btn.setGraphic(null);
             btn.setDisable(false);
         }
-    }
-    public int checkIfWin(int x, int y, String buttonString){
-        moveCount++;
-
-        String[][] buttonArray = new String[3][3];
-        buttonArray[0][0] = btn1.getText();
-        buttonArray[0][1] = btn2.getText();
-        buttonArray[0][2] = btn3.getText();
-        buttonArray[1][0] = btn4.getText();
-        buttonArray[1][1] = btn5.getText();
-        buttonArray[1][2] = btn6.getText();
-        buttonArray[2][0] = btn7.getText();
-        buttonArray[2][1] = btn8.getText();
-        buttonArray[2][2] = btn9.getText();
-        // check row
-        for (int i = 0; i < gameSize; i++) {
-            if (!buttonArray[x][i].equals(buttonString)) {
-                break;
-            }
-            if (i == gameSize -1 ){
-                return 1;
-            }
-        }
-        // check column
-        for (int i = 0; i < gameSize; i++) {
-            if (!buttonArray[i][y].equals(buttonString)) {
-                break;
-            }
-            if (i == gameSize - 1){
-                return 1;
-            }
-        }
-        // check diagonal
-        if (x == y){
-            for (int i = 0; i < gameSize; i++) {
-                if(!buttonArray[i][i].equals(buttonString)){
-                    break;
-                }
-                if(i == gameSize-1){
-                    return 1;
-                }
-            }
-        }
-        // check anti-diagonal
-        if(x + y == gameSize - 1){
-            for(int i = 0; i < gameSize; i++){
-                if(!buttonArray[i][(gameSize - 1) - i].equals(buttonString)){
-                    break;
-                }
-                if(i == gameSize-1){
-                    return 1;
-                }
-            }
-        }
-        //check draw
-        if(moveCount == (Math.pow(gameSize, 2))){
-            return -1;
-        }
-        return 0;
     }
 
     public static int getGameState() {
@@ -205,5 +144,8 @@ public class TicTacViewController implements Initializable
 
     public void setGameState(int gameState) {
         TicTacViewController.gameState = gameState;
+    }
+    private void buttonArrayCreator(int r, int c, String player){
+        this.buttonArray[r][c] = player;
     }
 }

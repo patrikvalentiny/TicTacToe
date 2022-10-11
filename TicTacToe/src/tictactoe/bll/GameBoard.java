@@ -13,6 +13,65 @@ import tictactoe.gui.controller.TicTacViewController;
  */
 public class GameBoard implements IGameModel
 {
+    /**
+     * Gets the id of the winner, -1 if its a draw.
+     *
+     * @return int id of winner, or -1 if draw.
+     */
+    public static int getWinner(int x, int y, int gameSize, String buttonString, String[][] buttonArray) {
+        // check row
+        for (int i = 0; true; i++) {
+            if (!buttonArray[x][i].equals(buttonString)) {
+                break;
+            }
+            if (i == gameSize - 1) {
+                return buttonString.equals("X") ? 1 : 0;
+            }
+        }
+        // check column
+        for (int i = 0; true; i++) {
+            if (!buttonArray[i][y].equals(buttonString)) {
+                break;
+            }
+            if (i == gameSize - 1) {
+                return buttonString.equals("X") ? 1 : 0;
+            }
+        }
+        // check diagonal
+        if (x == y) {
+            for (int i = 0; true; i++) {
+                if (!buttonArray[i][i].equals(buttonString)) {
+                    break;
+                }
+                if (i == gameSize - 1) {
+                    return buttonString.equals("X") ? 1 : 0;
+                }
+            }
+        }
+        // check anti-diagonal
+        if (x + y == gameSize - 1) {
+            for (int i = 0; true; i++) {
+                if (!buttonArray[i][(gameSize - 1) - i].equals(buttonString)) {
+                    break;
+                }
+                if (i == gameSize - 1) {
+                    return buttonString.equals("X") ? 1 : 0;
+                }
+            }
+        }
+        //check draw
+        for (int i = 0; i<3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (buttonArray[i][j].equals("")) {
+                    break;
+                }
+                if (i == 2 && j == 2) {
+                    return -1;
+                }
+            }
+        }
+        return -2;
+    }
 
     /**
      * Returns X for player X, O for player O.
@@ -55,15 +114,9 @@ public class GameBoard implements IGameModel
 
     }
 
-    /**
-     * Gets the id of the winner, -1 if its a draw.
-     *
-     * @return int id of winner, or -1 if draw.
-     */
-    public int getWinner()
-    {
-        //TODO Implement this method
-        return (1);
+    @Override
+    public int getWinner() {
+        return 0;
     }
 
     /**
