@@ -39,6 +39,7 @@ public class TicTacViewController implements Initializable
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
     private static final int gameSize = 3;
+    private int moveCount = 0;
 
     @FXML
     private void handleButtonAction(ActionEvent event)
@@ -117,7 +118,9 @@ public class TicTacViewController implements Initializable
             btn.setDisable(false);
         }
     }
-    private boolean checkIfWin(int x, int y, String buttonString){
+    private int checkIfWin(int x, int y, String buttonString){
+        moveCount++;
+
         String[][] buttonArray = new String[3][3];
         buttonArray[0][0] = btn1.getText();
         buttonArray[0][1] = btn2.getText();
@@ -134,7 +137,7 @@ public class TicTacViewController implements Initializable
                 break;
             }
             if (i == gameSize -1 ){
-                return true;
+                return 1;
             }
         }
         // check column
@@ -143,7 +146,7 @@ public class TicTacViewController implements Initializable
                 break;
             }
             if (i == gameSize - 1){
-                return true;
+                return 1;
             }
         }
         // check diagonal
@@ -153,27 +156,25 @@ public class TicTacViewController implements Initializable
                     break;
                 }
                 if(i == gameSize-1){
-                    return true;
+                    return 1;
                 }
             }
         }
         // check anti-diagonal
         if(x + y == gameSize - 1){
             for(int i = 0; i < gameSize; i++){
-                if(buttonArray[i][(gameSize - 1) - i].equals(buttonString)){
+                if(!buttonArray[i][(gameSize - 1) - i].equals(buttonString)){
                     break;
                 }
                 if(i == gameSize-1){
-                    return true;
+                    return 1;
                 }
             }
         }
         //check draw
-        /*
-        if(moveCount == (Math.pow(n, 2) - 1)){
-            //report draw
+        if(moveCount == (Math.pow(gameSize, 2))){
+            return -1;
         }
-         */
-        return false;
+        return 0;
     }
 }
