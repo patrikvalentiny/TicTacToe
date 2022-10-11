@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="415.0" prefWidth="532.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.gui.views.MenuScreen">
+<AnchorPane prefHeight="415.0" prefWidth="532.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.gui.controller.MenuScreenController">
    <children>
       <Button fx:id="btnPVE" layoutX="40.0" layoutY="119.0" mnemonicParsing="false" onAction="#actionPVE" text="Play against skynet prototype" />
       <Button fx:id="btnPVP" layoutX="291.0" layoutY="119.0" mnemonicParsing="false" onAction="#actionPVP" text="Play against another organic being" />
