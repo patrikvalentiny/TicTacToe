@@ -40,6 +40,7 @@ public class TicTacViewController implements Initializable
     private IGameModel game;
     private static final int gameSize = 3;
     private int moveCount = 0;
+    private int gameState;
 
     @FXML
     private void handleButtonAction(ActionEvent event)
@@ -63,7 +64,8 @@ public class TicTacViewController implements Initializable
                     String xOrO = lblPlayer.getText().split(" ")[1];
                     btn.setText(xOrO);
                     btn.setDisable(true);
-                    System.out.println(checkIfWin(r, c, xOrO));
+                    setGameState(checkIfWin(r, c, xOrO));
+                    System.out.println(gameState);
                     setPlayer(game.getNextPlayer(xOrO));
                 }
             }
@@ -176,5 +178,13 @@ public class TicTacViewController implements Initializable
             return -1;
         }
         return 0;
+    }
+
+    public int getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
     }
 }
