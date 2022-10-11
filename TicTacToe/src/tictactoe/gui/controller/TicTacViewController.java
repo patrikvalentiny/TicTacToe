@@ -25,6 +25,7 @@ import tictactoe.bll.IGameModel;
 public class TicTacViewController implements Initializable
 {
 
+
     @FXML
     private Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9;
     @FXML
@@ -40,7 +41,7 @@ public class TicTacViewController implements Initializable
     private IGameModel game;
     private static final int gameSize = 3;
     private int moveCount = 0;
-    private int gameState;
+    private static int gameState;
 
     @FXML
     private void handleButtonAction(ActionEvent event)
@@ -120,7 +121,7 @@ public class TicTacViewController implements Initializable
             btn.setDisable(false);
         }
     }
-    private int checkIfWin(int x, int y, String buttonString){
+    public int checkIfWin(int x, int y, String buttonString){
         moveCount++;
 
         String[][] buttonArray = new String[3][3];
@@ -180,11 +181,11 @@ public class TicTacViewController implements Initializable
         return 0;
     }
 
-    public int getGameState() {
+    public static int getGameState() {
         return gameState;
     }
 
     public void setGameState(int gameState) {
-        this.gameState = gameState;
+        TicTacViewController.gameState = gameState;
     }
 }
