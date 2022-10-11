@@ -54,30 +54,28 @@ public class TicTacViewController implements Initializable
             Integer col = GridPane.getColumnIndex((Node) event.getSource());
             int r = (row == null) ? 0 : row;
             int c = (col == null) ? 0 : col;
-            if (game.play(c, r))
-            {
-                Image imageX = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/X.png"));
-                Image imageO = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/O.png"));
-                ImageView Xview = new ImageView(imageX);
-                ImageView Oview = new ImageView(imageO);
-                Button btn = (Button) event.getSource();
-                String xOrO = lblPlayer.getText().split(" ")[1];
-                if(xOrO.charAt(0) == 'X')
-                    btn.setGraphic(Xview);
-                else
-                    btn.setGraphic(Oview);
-                //btn.setText(xOrO);
-                btn.setDisable(true);
-                buttonArrayCreator(r, c, xOrO);
-                int winner = game.getWinner(r, c, gameSize, xOrO, buttonArray);
-                setGameState(winner);
-                System.out.println(gameState);
-                setPlayer(game.getNextPlayer(xOrO));
 
-                if (game.isGameOver())
-                {
-                    displayWinner(winner);
-                }
+            Image imageX = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/X.png"));
+            Image imageO = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/O.png"));
+            ImageView Xview = new ImageView(imageX);
+            ImageView Oview = new ImageView(imageO);
+            Button btn = (Button) event.getSource();
+            String xOrO = lblPlayer.getText().split(" ")[1];
+            if(xOrO.charAt(0) == 'X')
+                btn.setGraphic(Xview);
+            else
+                btn.setGraphic(Oview);
+            //btn.setText(xOrO);
+            btn.setDisable(true);
+            buttonArrayCreator(r, c, xOrO);
+            int winner = game.getWinner(r, c, gameSize, xOrO, buttonArray);
+            setGameState(winner);
+            System.out.println(gameState);
+            setPlayer(game.getNextPlayer(xOrO));
+
+            if (game.isGameOver())
+            {
+                displayWinner(winner);
             }
 
         } catch (Exception e)
