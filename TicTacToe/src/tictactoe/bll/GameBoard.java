@@ -25,7 +25,7 @@ public class GameBoard implements IGameModel
                 break;
             }
             if (i == gameSize - 1) {
-                gameOver = buttonString.equals("X") ? 1 : 0;
+                gameOver = buttonString.equals("X") ? 1 : 2;
                 return gameOver;
             }
         }
@@ -35,7 +35,7 @@ public class GameBoard implements IGameModel
                 break;
             }
             if (i == gameSize - 1) {
-                gameOver = buttonString.equals("X") ? 1 : 0;
+                gameOver = buttonString.equals("X") ? 1 : 2;
                 return gameOver;
             }
         }
@@ -46,7 +46,7 @@ public class GameBoard implements IGameModel
                     break;
                 }
                 if (i == gameSize - 1) {
-                    gameOver = buttonString.equals("X") ? 1 : 0;
+                    gameOver = buttonString.equals("X") ? 1 : 2;
                     return gameOver;
                 }
             }
@@ -58,7 +58,7 @@ public class GameBoard implements IGameModel
                     break;
                 }
                 if (i == gameSize - 1) {
-                    gameOver = buttonString.equals("X") ? 1 : 0;
+                    gameOver = buttonString.equals("X") ? 1 : 2;
                     return gameOver;
                 }
             }
