@@ -5,18 +5,25 @@
  */
 package tictactoe.gui.controller;
 
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.Text;
 import tictactoe.bll.GameBoard;
 import tictactoe.bll.IGameModel;
+
 
 /**
  *
@@ -61,9 +68,17 @@ public class TicTacViewController implements Initializable
                 }
                 else
                 {
+                    Image imageX = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/X.png"));
+                    Image imageO = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/O.png"));
+                    ImageView Xview = new ImageView(imageX);
+                    ImageView Oview = new ImageView(imageO);
                     Button btn = (Button) event.getSource();
                     String xOrO = lblPlayer.getText().split(" ")[1];
-                    btn.setText(xOrO);
+                    if(xOrO.charAt(0) == 'X')
+                        btn.setGraphic(Xview);
+                    else
+                        btn.setGraphic(Oview);
+                    //btn.setText(xOrO);
                     btn.setDisable(true);
                     setGameState(checkIfWin(r, c, xOrO));
                     System.out.println(gameState);
