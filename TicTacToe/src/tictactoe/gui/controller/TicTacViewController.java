@@ -78,6 +78,8 @@ public class TicTacViewController implements Initializable
                         btn.setGraphic(Xview);
                     else
                         btn.setGraphic(Oview);
+                    btn.setAccessibleText(xOrO);
+                    btn.getAccessibleText();
                     //btn.setText(xOrO);
                     btn.setDisable(true);
                     setGameState(checkIfWin(r, c, xOrO));
@@ -133,6 +135,7 @@ public class TicTacViewController implements Initializable
         {
             Button btn = (Button) n;
             btn.setText("");
+            btn.setGraphic(null);
             btn.setDisable(false);
         }
     }
