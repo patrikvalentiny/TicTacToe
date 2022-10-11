@@ -5,6 +5,8 @@
  */
 package tictactoe.bll;
 
+import tictactoe.gui.controller.TicTacViewController;
+
 /**
  *
  * @author Stegger
@@ -42,8 +44,15 @@ public class GameBoard implements IGameModel
 
     public boolean isGameOver()
     {
-        //TODO Implement this method
-        return false;
+        int g = TicTacViewController.getGameState();
+        if (g == 1)
+        {
+            return true;
+        }
+        {
+            return false;
+        }
+
     }
 
     /**
@@ -54,7 +63,7 @@ public class GameBoard implements IGameModel
     public int getWinner()
     {
         //TODO Implement this method
-        return -1;
+        return (1);
     }
 
     /**

@@ -41,7 +41,7 @@ public class TicTacViewController implements Initializable
     private static final int gameSize = 3;
     private int moveCount = 0;
     // gameState is 0 for game running, 1 for found a winner, -1 for a draw
-    private int gameState = 0;
+    private static int gameState = 0;
 
     @FXML
     private void handleButtonAction(ActionEvent event)
@@ -121,7 +121,7 @@ public class TicTacViewController implements Initializable
             btn.setDisable(false);
         }
     }
-    private int checkIfWin(int x, int y, String buttonString){
+    public int checkIfWin(int x, int y, String buttonString){
         moveCount++;
 
         String[][] buttonArray = new String[3][3];
@@ -181,7 +181,7 @@ public class TicTacViewController implements Initializable
         return 0;
     }
 
-    public int getGameState() {
+    public static int getGameState() {
         return gameState;
     }
 
