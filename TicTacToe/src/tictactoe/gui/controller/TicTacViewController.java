@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,7 +70,10 @@ public class TicTacViewController implements Initializable {
 
                 buttonArrayCreator(r, c, xOrO);
                 int winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
-                System.out.println(winner);
+                //System.out.println(winner);
+                if (xOrO.equalsIgnoreCase("X")) {
+                    System.out.println(Arrays.toString(game.PCPlayer(buttonArray)));
+                }
                 setPlayer(game.getNextPlayer(xOrO));
 
                 if (game.isGameOver()) {
@@ -87,20 +91,19 @@ public class TicTacViewController implements Initializable {
     private void handleNewGame(ActionEvent event) {
         game.newGame();
         setPlayer("X");
-
+        // makes an array of empty strings
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 buttonArray[i][j] = "";
             }
         }
-
         clearBoard();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         game = new GameBoard();
-        generateBoard(3,gridPane);
+        generateBoard(GAME_SIZE,gridPane);
         handleNewGame(new ActionEvent());
     }
 
@@ -146,7 +149,6 @@ public class TicTacViewController implements Initializable {
     private void clearBoard() {
         for (Node n : gridPane.getChildren()) {
             Button btn = (Button) n;
-            btn.setText("");
             btn.setGraphic(null);
             btn.setDisable(false);
         }

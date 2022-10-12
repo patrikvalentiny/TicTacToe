@@ -11,7 +11,7 @@ package tictactoe.bll;
  */
 public interface IGameModel
 {
-    public int getWinner(int x, int y, int gameSize, String buttonString, String[][] buttonArray);
+    public int getWinner(int x, int y, int gameSize, String playerString, String[][] buttonArray);
     /**
      * Returns 0 for player 0, 1 for player 1.
      *
@@ -31,4 +31,5 @@ public interface IGameModel
      * Resets the game to a new game state.
      */
     public void newGame();
+    public int[] PCPlayer(String[][] buttonArray);
 }
