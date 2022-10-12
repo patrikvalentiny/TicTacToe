@@ -49,7 +49,15 @@ public class WinnerScreenController implements Initializable {
         stage.setTitle("Menu");
     }
 
+    @FXML
+    public Button btnNewGame;
 
-    public void handleNewGame(ActionEvent actionEvent) {
+
+    public void handleNewGame(ActionEvent actionEvent) throws IOException {
+        Parent root = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml")).load();
+        Stage stage = ((Stage) btnNewGame.getScene().getWindow());
+        stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Menu");
     }
 }

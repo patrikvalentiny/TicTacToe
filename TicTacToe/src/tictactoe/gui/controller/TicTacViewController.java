@@ -177,10 +177,13 @@ public class TicTacViewController implements Initializable {
     }
 
 
+    @FXML
+    public Button btnNewGame;
+    public void gameOverWindow(ActionEvent actionEvent) throws Exception
     public void gameOverWindow(int winner) throws Exception
     {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/WinnerScreen.fxml")).load();
-        Stage stage = ((Stage) returnToMenuBtn.getScene().getWindow());
+        Stage stage = ((Stage) btnNewGame.getScene().getWindow());
         stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
         stage.setUserData(winner);
         stage.setScene(new Scene(root));
