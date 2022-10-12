@@ -79,7 +79,7 @@ public class TicTacViewController implements Initializable {
                 if (game.isGameOver()) {
                     //displayWinner(winner);
                     //disableButtons();
-                    gameOverWindow(new ActionEvent());
+                    gameOverWindow(winner);
                 }
             }
         } catch (Exception e) {
@@ -177,11 +177,12 @@ public class TicTacViewController implements Initializable {
     }
 
 
-    public void gameOverWindow(ActionEvent actionEvent) throws Exception
+    public void gameOverWindow(int winner) throws Exception
     {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/WinnerScreen.fxml")).load();
         Stage stage = ((Stage) returnToMenuBtn.getScene().getWindow());
         stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
+        stage.setUserData(winner);
         stage.setScene(new Scene(root));
         stage.setTitle("Menu");
 

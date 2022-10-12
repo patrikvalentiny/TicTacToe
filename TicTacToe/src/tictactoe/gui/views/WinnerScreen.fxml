@@ -7,14 +7,9 @@
 
 <AnchorPane prefHeight="156.0" prefWidth="319.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.gui.controller.WinnerScreenController">
    <children>
-      <Label layoutX="89.0" layoutY="53.0" text="player is the winner">
+      <Label fx:id="win" layoutX="89.0" layoutY="53.0" text="player is the winner">
          <font>
             <Font size="19.0" />
-         </font>
-      </Label>
-      <Label id="winnerID" layoutX="59.0" layoutY="47.0" prefHeight="39.0" prefWidth="30.0" text="player">
-         <font>
-            <Font size="20.0" />
          </font>
       </Label>
       <Button fx:id="btnNewGame" layoutX="120.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleNewGame" text="New game?" />
