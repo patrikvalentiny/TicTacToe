@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -21,7 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import tictactoe.bll.GameBoard;
 import tictactoe.bll.IGameModel;
@@ -38,8 +39,7 @@ public class TicTacViewController implements Initializable {
 
     @FXML
     private GridPane gridPane;
-
-
+    
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
     private static final int GAME_SIZE = 3;
@@ -87,22 +87,49 @@ public class TicTacViewController implements Initializable {
     private void handleNewGame(ActionEvent event) {
         game.newGame();
         setPlayer("X");
-        // makes an array of empty strings
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 buttonArray[i][j] = "";
             }
         }
+
         clearBoard();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         game = new GameBoard();
+        generateBoard(3,gridPane);
         handleNewGame(new ActionEvent());
     }
 
-    private void setPlayer(String player) {
+    public void generateBoard(int number, GridPane grid){
+        int minSize = 10, pref = 100;
+        for (int i = 0; i < number; i++) {
+            var colC = new ColumnConstraints();
+            colC.setMinWidth(minSize);
+            colC.setPrefWidth(pref);
+            colC.setHgrow(Priority.SOMETIMES);
+            grid.getColumnConstraints().add(colC);
+            var rowC = new RowConstraints();
+            rowC.setMinHeight(minSize);
+            rowC.setPrefHeight(pref);
+            rowC.setVgrow(Priority.SOMETIMES);
+            grid.getRowConstraints().add(rowC);
+        }
+        for (int i = 0; i < number; i++) {
+            for (int j = 0; j < number; j++) {
+                var btn = new Button("");
+                btn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                btn.setOnAction(event -> handleButtonAction(event));
+                btn.setId("btn");
+                grid.add(btn, i, j);
+            }
+        }
+    }
+    private void setPlayer(String player)
+    {
         lblPlayer.setText(TXT_PLAYER + player);
     }
 
@@ -119,6 +146,7 @@ public class TicTacViewController implements Initializable {
     private void clearBoard() {
         for (Node n : gridPane.getChildren()) {
             Button btn = (Button) n;
+            btn.setText("");
             btn.setGraphic(null);
             btn.setDisable(false);
         }
