@@ -25,14 +25,13 @@ public class WinnerScreenController {
 
     @FXML
     public Button btnNewGame;
-    public void playAgain(ActionEvent actionEvent) throws IOException {
-        Parent root = new FXMLLoader(TicTacToe.class.getResource("views/MenuScreen.fxml")).load();
+
+
+    public void handleNewGame(ActionEvent actionEvent) throws IOException {
+        Parent root = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml")).load();
         Stage stage = ((Stage) btnNewGame.getScene().getWindow());
         stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
         stage.setScene(new Scene(root));
         stage.setTitle("Menu");
-    }
-
-    public void handleNewGame(ActionEvent actionEvent) {
     }
 }
