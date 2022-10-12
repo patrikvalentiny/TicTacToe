@@ -174,6 +174,8 @@ public class TicTacViewController implements Initializable {
         stage.setTitle("Menu");
     }
 
+    @FXML
+    Button btnNewGame;
 
     public void gameOverWindow(ActionEvent actionEvent) throws Exception
     {
