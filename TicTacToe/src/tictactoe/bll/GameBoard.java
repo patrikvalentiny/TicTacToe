@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package tictactoe.bll;
+
+import java.util.Arrays;
+
 /**
  *
  * @author Stegger
@@ -19,26 +22,26 @@ public class GameBoard implements IGameModel
         * this method will return an integer that we use to identify game state and the winner.
             *  1 is X, 0 is O, -1 if it is a draw, and -2 simply shows the game is still running.
      */
-    public int getWinner(int x, int y, int gameSize, String buttonString, String[][] buttonArray) {
+    public int getWinner(int x, int y, int gameSize, String playerString, String[][] buttonArray) {
         moves++;
-        // check row
+        // check column
         for (int i = 0; true; i++) {
-            if (!buttonArray[x][i].equals(buttonString)) {
+            if (!buttonArray[x][i].equals(playerString)) {
                 break;
             }
             if (i == gameSize - 1) {
-                gameOver = buttonString.equals("X") ? 1 : 2;
+                gameOver = playerString.equals("X") ? 1 : 2;
                 return gameOver;
             }
         }
 
-        // check column
+        // check row
         for (int i = 0; true; i++) {
-            if (!buttonArray[i][y].equals(buttonString)) {
+            if (!buttonArray[i][y].equals(playerString)) {
                 break;
             }
             if (i == gameSize - 1) {
-                gameOver = buttonString.equals("X") ? 1 : 2;
+                gameOver = playerString.equals("X") ? 1 : 2;
                 return gameOver;
             }
         }
@@ -46,11 +49,11 @@ public class GameBoard implements IGameModel
         // check diagonal
         if (x == y) {
             for (int i = 0; true; i++) {
-                if (!buttonArray[i][i].equals(buttonString)) {
+                if (!buttonArray[i][i].equals(playerString)) {
                     break;
                 }
                 if (i == gameSize - 1) {
-                    gameOver = buttonString.equals("X") ? 1 : 2;
+                    gameOver = playerString.equals("X") ? 1 : 2;
                     return gameOver;
                 }
             }
@@ -58,11 +61,11 @@ public class GameBoard implements IGameModel
         // check anti-diagonal
         if (x + y == gameSize - 1) {
             for (int i = 0; true; i++) {
-                if (!buttonArray[i][(gameSize - 1) - i].equals(buttonString)) {
+                if (!buttonArray[i][(gameSize - 1) - i].equals(playerString)) {
                     break;
                 }
                 if (i == gameSize - 1) {
-                    gameOver = buttonString.equals("X") ? 1 : 2;
+                    gameOver = playerString.equals("X") ? 1 : 2;
                     return gameOver;
                 }
             }
@@ -103,4 +106,136 @@ public class GameBoard implements IGameModel
         moves = 0;
     }
 
+    public int[] PCPlayer(String[][] buttonArray){
+        int[] coordinates = new int[2];
+
+        String[][] testArrayO = new String[3][3];
+        String[][] testArrayX = new String[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                testArrayO[i][j] = "";
+                testArrayX[i][j] = "";
+            }
+        }
+
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                if (buttonArray[x][y].equals("")){
+                    testArrayO[x][y] = "O";
+                    testArrayX[x][y] = "X";
+                    //System.out.println(Arrays.deepToString(testArrayO));
+                    int AIState = getBestMoveAI(x, y, 3, "O", "X", testArrayO, testArrayX);
+                    if (AIState == 1){
+                        System.out.println("AI found winning solution");
+                        coordinates[0] = x;
+                        coordinates[1] = y;
+                        return coordinates;
+                    } else if (AIState == -1) {
+                        System.out.println("AI found not losing solution");
+                        coordinates[0] = x;
+                        coordinates[1] = y;
+                        return coordinates;
+                    } else {
+                        testArrayO[x][y] = "";
+                        testArrayX[x][y] = "";
+                    }
+                } else {
+                    testArrayO[x][y] = buttonArray[x][y];
+                    testArrayX[x][y] = buttonArray[x][y];
+                }
+            }
+        }
+        return coordinates;
+    }
+    private int getBestMoveAI(int x, int y, int gameSize, String playerString, String opponentString, String[][] testArrayO, String[][] testArrayX) {
+        //Winning condition
+        // check column
+        //System.out.println(Arrays.deepToString(testArrayO));
+        for (int i = 0; true; i++) {
+            if (!testArrayO[x][i].equals(playerString)) {
+                break;
+            }
+            if (i == gameSize - 1) {
+                return 1;
+            }
+        }
+
+        // check row
+        for (int i = 0; true; i++) {
+            if (!testArrayO[i][y].equals(playerString)) {
+                break;
+            }
+            if (i == gameSize - 1) {
+                return 1;
+            }
+        }
+
+        // check diagonal
+        if (x == y) {
+            for (int i = 0; true; i++) {
+                if (!testArrayO[i][i].equals(playerString)) {
+                    break;
+                }
+                if (i == gameSize - 1) {
+                    return 1;
+                }
+            }
+        }
+        // check anti-diagonal
+        if (x + y == gameSize - 1) {
+            for (int i = 0; true; i++) {
+                if (!testArrayO[i][(gameSize - 1) - i].equals(playerString)) {
+                    break;
+                }
+                if (i == gameSize - 1) {
+                    return 1;
+                }
+            }
+        }
+
+        // not losing
+        //check column
+        for (int i = 0; true; i++) {
+            if (!testArrayX[x][i].equals(opponentString)) {
+                break;
+            }
+            if (i == gameSize - 1) {
+                return -1;
+            }
+        }
+
+        // check row
+        for (int i = 0; true; i++) {
+            if (!testArrayX[i][y].equals(opponentString)) {
+                break;
+            }
+            if (i == gameSize - 1) {
+                return -1;
+            }
+        }
+
+        // check diagonal
+        if (x == y) {
+            for (int i = 0; true; i++) {
+                if (!testArrayX[i][i].equals(opponentString)) {
+                    break;
+                }
+                if (i == gameSize - 1) {
+                    return -1;
+                }
+            }
+        }
+        // check anti-diagonal
+        if (x + y == gameSize - 1) {
+            for (int i = 0; true; i++) {
+                if (!testArrayX[i][(gameSize - 1) - i].equals(opponentString)) {
+                    break;
+                }
+                if (i == gameSize - 1) {
+                    return -1;
+                }
+            }
+        }
+        return 0;
+    }
 }
