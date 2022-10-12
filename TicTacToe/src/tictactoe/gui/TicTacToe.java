@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -21,20 +22,15 @@ public class TicTacToe extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-     
-        
-        Parent root = FXMLLoader.load(getClass().getResource("views/TicTacView.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        
-        stage.setScene(scene);
-        stage.setResizable(false);
+        Parent root = FXMLLoader.load(getClass().getResource("views/MenuScreen.fxml"));
         stage.setTitle("Tic Tac Toe");
+        stage.getIcons().add(new Image(getClass().getResource("images/X.png").toExternalForm()));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.centerOnScreen();
-        
-        
+        stage.setResizable(false);
         stage.show();
+
     }
 
     /**
