@@ -6,12 +6,15 @@
 package tictactoe.gui.controller;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +26,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import tictactoe.bll.GameBoard;
 import tictactoe.bll.IGameModel;
+import tictactoe.gui.TicTacToe;
 
 
 /**
@@ -99,9 +103,7 @@ public class TicTacViewController implements Initializable {
         handleNewGame(new ActionEvent());
     }
 
-    private void setPlayer(String player) {
-    public void generateBoard(int number, GridPane grid)
-    {
+    public void generateBoard(int number, GridPane grid){
         int minSize = 10, pref = 100;
         for (int i = 0; i < number; i++) {
             var colC = new ColumnConstraints();
