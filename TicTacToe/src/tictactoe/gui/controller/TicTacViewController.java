@@ -99,7 +99,7 @@ public class TicTacViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         game = new GameBoard();
-        generateBoard(3,gridPane);
+        generateBoard(GAME_SIZE,gridPane);
         handleNewGame(new ActionEvent());
     }
 
