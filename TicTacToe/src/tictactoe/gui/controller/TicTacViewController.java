@@ -7,7 +7,6 @@ package tictactoe.gui.controller;
 
 import java.io.FileInputStream;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,15 +31,11 @@ public class TicTacViewController implements Initializable
     private Label lblPlayer;
 
     @FXML
-    private Button btnNewGame;
-
-    @FXML
     private GridPane gridPane;
     
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
-    private static final int gameSize = 3;
-    private int moveCount = 0;
+    private static final int GAME_SIZE = 3;
     private String[][] buttonArray = new String[3][3];
 
     @FXML
@@ -68,7 +63,7 @@ public class TicTacViewController implements Initializable
                 btn.setDisable(true);
 
                 buttonArrayCreator(r, c, xOrO);
-                int winner = game.getWinner(r, c, gameSize, xOrO, buttonArray);
+                int winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
                 System.out.println(winner);
                 setPlayer(game.getNextPlayer(xOrO));
 
@@ -86,15 +81,14 @@ public class TicTacViewController implements Initializable
     @FXML
     private void handleNewGame(ActionEvent event)
     {
-        game.newGame(); // this
+        game.newGame();
         setPlayer("X");
-
+        // makes an array of empty strings
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 buttonArray[i][j] = "";
             }
         }
-
         clearBoard();
     }
 
@@ -110,7 +104,7 @@ public class TicTacViewController implements Initializable
         lblPlayer.setText(TXT_PLAYER + player);
     }
 
-    private void displayWinner(int winner) // Make sure it works
+    private void displayWinner(int winner)
     {
         String message;
         if (winner == -1){
@@ -126,7 +120,6 @@ public class TicTacViewController implements Initializable
         for(Node n : gridPane.getChildren())
         {
             Button btn = (Button) n;
-            btn.setText("");
             btn.setGraphic(null);
             btn.setDisable(false);
         }
@@ -139,8 +132,6 @@ public class TicTacViewController implements Initializable
         for(Node n : gridPane.getChildren())
         {
             Button btn = (Button) n;
-            //btn.setText("");
-            //btn.setGraphic(null);
             btn.setDisable(true);
         }
     }
