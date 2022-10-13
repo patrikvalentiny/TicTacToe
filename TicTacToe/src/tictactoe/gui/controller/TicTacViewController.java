@@ -8,13 +8,10 @@ package tictactoe.gui.controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -40,7 +37,7 @@ public class TicTacViewController implements Initializable {
 
     @FXML
     private GridPane gridPane;
-    
+
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
     private static final int GAME_SIZE = 3;
@@ -70,15 +67,9 @@ public class TicTacViewController implements Initializable {
 
                 buttonArrayCreator(r, c, xOrO);
                 int winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
-                //System.out.println(winner);
-                if (xOrO.equalsIgnoreCase("X")) {
-                    System.out.println(Arrays.toString(game.PCPlayer(buttonArray)));
-                }
                 setPlayer(game.getNextPlayer(xOrO));
 
                 if (game.isGameOver()) {
-                    //displayWinner(winner);
-                    //disableButtons();
                     gameOverWindow(winner);
                 }
             }
@@ -136,16 +127,6 @@ public class TicTacViewController implements Initializable {
         lblPlayer.setText(TXT_PLAYER + player);
     }
 
-    private void displayWinner(int winner) {
-        String message;
-        if (winner == -1) {
-            message = "It's a draw :-(";
-        } else {
-            message = "Player " + winner + " wins!!!";
-        }
-        lblPlayer.setText(message);
-    }
-
     private void clearBoard() {
         for (Node n : gridPane.getChildren()) {
             Button btn = (Button) n;
@@ -157,33 +138,20 @@ public class TicTacViewController implements Initializable {
     private void buttonArrayCreator(int r, int c, String player) {
         this.buttonArray[r][c] = player;
     }
-
-    private void disableButtons() {
-        for (Node n : gridPane.getChildren()) {
-            Button btn = (Button) n;
-            btn.setDisable(true);
-        }
-    }
     @FXML
-    Button returnToMenuBtn;
-
-
+    private Button returnToMenuBtn;
     public void returnToMenu(ActionEvent actionEvent) throws IOException {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/MenuScreen.fxml")).load();
         Stage stage = ((Stage) returnToMenuBtn.getScene().getWindow());
-        stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
         stage.setScene(new Scene(root));
         stage.setTitle("Menu");
     }
-
-
     @FXML
-    public Button btnNewGame;
+    private Button btnNewGame;
     public void gameOverWindow(int winner) throws Exception
     {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/WinnerScreen.fxml")).load();
         Stage stage = ((Stage) btnNewGame.getScene().getWindow());
-        stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
         stage.setUserData(winner);
         stage.setScene(new Scene(root));
         stage.setTitle("Menu");

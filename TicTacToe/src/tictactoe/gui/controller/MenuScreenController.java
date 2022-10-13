@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import tictactoe.gui.TicTacToe;
 
@@ -24,7 +23,6 @@ public class MenuScreenController extends Application {
     private void actionPVE(ActionEvent actionEvent) throws IOException {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml")).load();
         Stage stage = ((Stage) btnPVE.getScene().getWindow());
-        stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
         stage.setScene(new Scene(root));
         stage.setTitle("Player vs AI");
     }
@@ -32,7 +30,6 @@ public class MenuScreenController extends Application {
     private void actionPVP(ActionEvent actionEvent) throws IOException {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml")).load();
         Stage stage = ((Stage) btnPVE.getScene().getWindow());
-        stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
         stage.setScene(new Scene(root));
         stage.setTitle("Player vs Player");
     }

@@ -9,9 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import tictactoe.bll.GameBoard;
 import tictactoe.gui.TicTacToe;
 
 import java.io.IOException;
@@ -44,7 +42,6 @@ public class WinnerScreenController implements Initializable {
     public void returnToMenu(ActionEvent actionEvent) throws IOException {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/MenuScreen.fxml")).load();
         Stage stage = ((Stage) returnBtn.getScene().getWindow());
-        stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
         stage.setScene(new Scene(root));
         stage.setTitle("Menu");
     }
@@ -56,7 +53,6 @@ public class WinnerScreenController implements Initializable {
     public void handleNewGame(ActionEvent actionEvent) throws IOException {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml")).load();
         Stage stage = ((Stage) btnNewGame.getScene().getWindow());
-        stage.getIcons().add(new Image(TicTacToe.class.getResource("images/Ai.png").toExternalForm()));
         stage.setScene(new Scene(root));
         stage.setTitle("Menu");
     }
