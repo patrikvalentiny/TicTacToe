@@ -64,8 +64,6 @@ public class TicTacViewController implements Initializable {
 
                 if (xOrO.charAt(0) == 'X')
                     btn.setGraphic(Xview);
-                else
-                    btn.setGraphic(Oview);
                 btn.setDisable(true);
                 buttonArrayCreator(r, c, xOrO);
                 int winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
@@ -85,8 +83,10 @@ public class TicTacViewController implements Initializable {
                 btn = ((Button) gridPane.getChildren().get(r*3 + c));
                 btn.setGraphic(Oview);
                 btn.setDisable(true);
-                buttonArrayCreator(r, c, xOrO);
+                buttonArrayCreator(c, r, xOrO);
+                System.out.println(Arrays.deepToString(buttonArray));
                 winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
+                System.out.println(winner);
                 setPlayer(game.getNextPlayer(xOrO));
                 if (game.isGameOver()) {
                     gameOverWindow(winner);
