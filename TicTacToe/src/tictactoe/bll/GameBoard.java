@@ -11,7 +11,7 @@ package tictactoe.bll;
  * @author Stegger
  */
 public class GameBoard implements IGameModel {
-    private int gameOver = -2;
+    private static int gameOver = -2;
     private int moves = 0;
 
     /**
@@ -99,5 +99,147 @@ public class GameBoard implements IGameModel {
     public void newGame() {
         gameOver = -2;
         moves = 0;
+    }
+    private static int miniMax(String[][] board, int depth, boolean isMax) {
+        int boardVal = evaluateBoard(board, depth);
+
+        // Terminal node (win/lose/draw) or max depth reached.
+        if (Math.abs(boardVal) > 0 || depth == 0 || boardVal == -1) {
+            return boardVal;
+        }
+        // Maximising player, find the maximum attainable value.
+        if (isMax) {
+            int highestVal = Integer.MIN_VALUE;
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 3; col++) {
+                    if (board[row][col].equals("")) {
+                        board[row][col] =  "O";
+                        highestVal = Math.max(highestVal, miniMax(board,depth - 1, false));
+                        board[row][col] = "";
+                    }
+                }
+            }
+            return highestVal;
+            // Minimising player, find the minimum attainable value;
+        } else {
+            int lowestVal = Integer.MAX_VALUE;
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 3; col++) {
+                    if (board[row][col].equals("")) {
+                        board[row][col] = "X";
+                        lowestVal = Math.min(lowestVal, miniMax(board,depth - 1, true));
+                        board[row][col] = "";
+                    }
+                }
+            }
+            return lowestVal;
+        }
+    }
+
+    /**
+     * Evaluate every legal move on the board and return the best one.
+     * @param board Board to evaluate
+     * @return Coordinates of best move
+     */
+    public int[] getBestMove(String[][] board) {
+        int[] bestMove = new int[]{-1, -1};
+        int bestValue = Integer.MIN_VALUE;
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (board[row][col].equals("")) {
+                    board[row][col] = "O";
+                    int moveValue = miniMax(board, 6, false);
+                    //System.out.println(moveValue);
+                    //System.out.println(row + " " + col);
+                    board[row][col] = "";
+                    if (moveValue > bestValue) {
+                        bestMove[1] = row;
+                        bestMove[0] = col;
+                        bestValue = moveValue;
+                    }
+                }
+            }
+        }
+        return bestMove;
+    }
+
+    /**
+     * Evaluate the given board from the perspective of the O player, return
+     * 10 if a winning board configuration is found, -10 for a losing one and 0
+     * for a draw.
+     * @param board Board to evaluate
+     * @return value of the board
+     */
+    private static int evaluateBoard(String[][] board, int depth) {
+        int rowSum = 0;
+        int bWidth = 3;
+        int Xwin = 'X' * bWidth;
+        int Owin = 'O' * bWidth;
+
+        // Check rows for winner.
+        for (int row = 0; row < bWidth; row++) {
+            for (int col = 0; col < bWidth; col++) {
+                rowSum += board[row][col].equals("") ? ' ' : board[row][col].charAt(0);
+            }
+            if (rowSum == Xwin) {
+                return -10 - depth;
+            } else if (rowSum == Owin) {
+                return 10 + depth;
+            }
+            rowSum = 0;
+        }
+
+        // Check columns for winner.
+        rowSum = 0;
+        for (int col = 0; col < bWidth; col++) {
+            for (int row = 0; row < bWidth; row++) {
+                rowSum += board[row][col].equals("") ? ' ' : board[row][col].charAt(0);
+            }
+            if (rowSum == Xwin) {
+                return -10 - depth;
+            } else if (rowSum == Owin) {
+                return 10 + depth;
+
+            }
+            rowSum = 0;
+        }
+
+        // Check diagonals for winner.
+        // Top-left to bottom-right diagonal.
+        rowSum = 0;
+        for (int i = 0; i < bWidth; i++) {
+            rowSum += board[i][i].equals("") ? ' ' : board[i][i].charAt(0);
+        }
+        if (rowSum == Xwin) {
+            return -10 - depth;
+        } else if (rowSum == Owin) {
+            return 10 + depth;
+
+        }
+
+        // Top-right to bottom-left diagonal.
+        rowSum = 0;
+        int indexMax = bWidth - 1;
+        for (int i = 0; i <= indexMax; i++) {
+            rowSum += board[i][indexMax-i].equals("") ? ' ' : board[i][indexMax-i].charAt(0);
+        }
+        if (rowSum == Xwin) {
+            return -10 - depth;
+        } else if (rowSum == Owin) {
+            return 10 + depth;
+        }
+        // draw
+        int drawSum = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (!board[i][j].equals("") )
+                    drawSum++;
+            }
+        }
+        if (drawSum == 9){
+            return -1;
+        }
+        return 0;
     }
 }

@@ -8,6 +8,7 @@ package tictactoe.gui.controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,14 +60,19 @@ public class TicTacViewController implements Initializable {
 
                 Button btn = (Button) event.getSource();
                 String xOrO = lblPlayer.getText().split(" ")[1];
+
                 if (xOrO.charAt(0) == 'X')
                     btn.setGraphic(Xview);
                 else
                     btn.setGraphic(Oview);
                 btn.setDisable(true);
-
                 buttonArrayCreator(r, c, xOrO);
                 int winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
+                if (xOrO.charAt(0) == 'X'){
+                    int [] arr = game.getBestMove(buttonArray);
+                    System.out.println("X = " + arr[0] + " Y = " + arr[1]);
+                }
+
                 setPlayer(game.getNextPlayer(xOrO));
 
                 if (game.isGameOver()) {
