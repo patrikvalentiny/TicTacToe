@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,13 +69,25 @@ public class TicTacViewController implements Initializable {
                 btn.setDisable(true);
                 buttonArrayCreator(r, c, xOrO);
                 int winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
-                if (xOrO.charAt(0) == 'X'){
-                    int [] arr = game.getBestMove(buttonArray);
-                    System.out.println("X = " + arr[0] + " Y = " + arr[1]);
-                }
 
                 setPlayer(game.getNextPlayer(xOrO));
 
+                if (game.isGameOver()) {
+                    gameOverWindow(winner);
+                }
+
+                // playPC
+                int [] arr = game.getBestMove(buttonArray);
+                r = arr[0];
+                c = arr[1];
+                xOrO = lblPlayer.getText().split(" ")[1];
+                System.out.println("X = " + r + " Y = " + c);
+                btn = ((Button) gridPane.getChildren().get(r*3 + c));
+                btn.setGraphic(Oview);
+                btn.setDisable(true);
+                buttonArrayCreator(r, c, xOrO);
+                winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
+                setPlayer(game.getNextPlayer(xOrO));
                 if (game.isGameOver()) {
                     gameOverWindow(winner);
                 }
