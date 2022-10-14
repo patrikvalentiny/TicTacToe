@@ -23,7 +23,6 @@ public class WinnerScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(()->{
-            System.out.println(((Stage) returnBtn.getScene().getWindow()).getUserData().toString());
             int winner = Integer.parseInt(((Stage) returnBtn.getScene().getWindow()).getUserData().toString().split(" ")[0]);
             switch (winner) {
                 case (-1):

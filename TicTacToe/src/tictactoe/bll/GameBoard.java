@@ -150,8 +150,6 @@ public class GameBoard implements IGameModel {
                 if (board[row][col].equals("")) {
                     board[row][col] = "O";
                     int moveValue = miniMax(board, 7, false);
-                    //System.out.println(moveValue);
-                    //System.out.println(row + " " + col);
                     board[row][col] = "";
                     if (moveValue > bestValue) {
                         bestMove[0] = row;

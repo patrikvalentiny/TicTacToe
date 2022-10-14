@@ -63,7 +63,7 @@ public class TicTacViewController implements Initializable {
                     play(r, c, xOrO, btn);
                     setPlayer(game.getNextPlayer(xOrO));
                 }
-                if(stageData.charAt(0) == 'B')
+                if(stageData.charAt(0) == 'B' && !game.isGameOver())
                     playPC();
             }
         } catch (Exception e) {
@@ -155,7 +155,7 @@ public class TicTacViewController implements Initializable {
         Button btn = ((Button) gridPane.getChildren().get(arr[1]*3 + arr[0]));
         play(arr[0],arr[1], PC_PLAYER, btn);
     }
-    private void play(int r, int c, String player, Button btn) throws Exception {
+    private void play(int r, int c, String player, Button btn) throws FileNotFoundException {
         if (player.equals("X")){
             ImageView Xview = new ImageView(new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/X.png")));
             btn.setGraphic(Xview);
