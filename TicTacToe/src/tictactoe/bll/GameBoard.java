@@ -154,8 +154,8 @@ public class GameBoard implements IGameModel {
                     //System.out.println(row + " " + col);
                     board[row][col] = "";
                     if (moveValue > bestValue) {
-                        bestMove[1] = row;
-                        bestMove[0] = col;
+                        bestMove[0] = row;
+                        bestMove[1] = col;
                         bestValue = moveValue;
                     }
                 }
@@ -191,7 +191,6 @@ public class GameBoard implements IGameModel {
         }
 
         // Check columns for winner.
-        rowSum = 0;
         for (int col = 0; col < bWidth; col++) {
             for (int row = 0; row < bWidth; row++) {
                 rowSum += board[row][col].equals("") ? ' ' : board[row][col].charAt(0);
@@ -207,7 +206,6 @@ public class GameBoard implements IGameModel {
 
         // Check diagonals for winner.
         // Top-left to bottom-right diagonal.
-        rowSum = 0;
         for (int i = 0; i < bWidth; i++) {
             rowSum += board[i][i].equals("") ? ' ' : board[i][i].charAt(0);
         }

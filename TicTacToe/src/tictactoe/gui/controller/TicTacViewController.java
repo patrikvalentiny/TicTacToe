@@ -6,6 +6,7 @@
 package tictactoe.gui.controller;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,11 +38,12 @@ public class TicTacViewController implements Initializable {
 
     @FXML
     private GridPane gridPane;
-
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
     private static final int GAME_SIZE = 3;
     private String[][] buttonArray = new String[3][3];
+    private static final String USER_PLAYER = "X";
+    private static final String PC_PLAYER = "o";
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -52,40 +54,17 @@ public class TicTacViewController implements Initializable {
                 int r = (row == null) ? 0 : row;
                 int c = (col == null) ? 0 : col;
 
-                Image imageX = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/X.png"));
-                Image imageO = new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/O.png"));
-                ImageView Xview = new ImageView(imageX);
-                ImageView Oview = new ImageView(imageO);
-
                 Button btn = (Button) event.getSource();
-                String xOrO = lblPlayer.getText().split(" ")[1];
-
-                if (xOrO.charAt(0) == 'X')
-                    btn.setGraphic(Xview);
-                btn.setDisable(true);
-                buttonArrayCreator(r, c, xOrO);
-                int winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
-
-                setPlayer(game.getNextPlayer(xOrO));
+                int winner = play(r,c,USER_PLAYER,btn);
 
                 if (game.isGameOver()) {
                     gameOverWindow(winner);
-                }
+                } else {
+                    winner = playPC();
 
-                // playPC
-                int [] arr = game.getBestMove(buttonArray);
-                r = arr[0];
-                c = arr[1];
-                xOrO = lblPlayer.getText().split(" ")[1];
-                //System.out.println("X = " + r + " Y = " + c);
-                btn = ((Button) gridPane.getChildren().get(r*3 + c));
-                btn.setGraphic(Oview);
-                btn.setDisable(true);
-                buttonArrayCreator(c, r, xOrO);
-                winner = game.getWinner(c, r, GAME_SIZE, xOrO, buttonArray);
-                setPlayer(game.getNextPlayer(xOrO));
-                if (game.isGameOver()) {
-                    gameOverWindow(winner);
+                    if (game.isGameOver()) {
+                        gameOverWindow(winner);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -171,5 +150,23 @@ public class TicTacViewController implements Initializable {
         stage.setScene(new Scene(root));
         stage.setTitle("Menu");
 
+    }
+    private int playPC() throws IOException {
+        int [] arr = game.getBestMove(buttonArray);
+        Button btn = ((Button) gridPane.getChildren().get(arr[1]*3 + arr[0]));
+        return play(arr[0],arr[1], PC_PLAYER, btn);
+    }
+    private int play(int r, int c, String player, Button btn) throws FileNotFoundException {
+        if (player.equals("X")){
+            ImageView Xview = new ImageView(new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/X.png")));
+            btn.setGraphic(Xview);
+        } else {
+            ImageView Oview = new ImageView(new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/O.png")));
+            btn.setGraphic(Oview);
+
+        }
+        btn.setDisable(true);
+        buttonArrayCreator(r, c, player);
+        return game.getWinner(r, c, GAME_SIZE, player, buttonArray);
     }
 }
