@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +44,7 @@ public class TicTacViewController implements Initializable {
     private static final int GAME_SIZE = 3;
     private String[][] buttonArray = new String[3][3];
     private static final String USER_PLAYER = "X";
-    private static final String PC_PLAYER = "o";
+    private static final String PC_PLAYER = "O";
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -179,7 +180,6 @@ public class TicTacViewController implements Initializable {
         } else {
             ImageView Oview = new ImageView(new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/O.png")));
             btn.setGraphic(Oview);
-
         }
         btn.setDisable(true);
         buttonArrayCreator(r, c, player);
