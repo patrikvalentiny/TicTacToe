@@ -23,7 +23,8 @@ public class WinnerScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(()->{
-            int winner = Integer.parseInt(((Stage) returnBtn.getScene().getWindow()).getUserData().toString());
+            System.out.println(((Stage) returnBtn.getScene().getWindow()).getUserData().toString());
+            int winner = Integer.parseInt(((Stage) returnBtn.getScene().getWindow()).getUserData().toString().split(" ")[0]);
             switch (winner) {
                 case (-1):
                     win.setText("The game is a draw");
@@ -53,6 +54,7 @@ public class WinnerScreenController implements Initializable {
     public void handleNewGame(ActionEvent actionEvent) throws IOException {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml")).load();
         Stage stage = ((Stage) btnNewGame.getScene().getWindow());
+        stage.setUserData(stage.getUserData().toString().split(" ")[1]);
         stage.setScene(new Scene(root));
         stage.setTitle("Menu");
     }

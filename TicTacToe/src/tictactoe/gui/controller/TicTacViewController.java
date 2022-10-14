@@ -48,19 +48,35 @@ public class TicTacViewController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) {
         try {
+            var stageData = ((Stage) gridPane.getScene().getWindow()).getUserData().toString();
+            ImageView Xview = new ImageView(new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/X.png")));
+            ImageView Oview = new ImageView(new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/O.png")));
             if (!game.isGameOver()) {
                 Integer row = GridPane.getRowIndex((Node) event.getSource());
                 Integer col = GridPane.getColumnIndex((Node) event.getSource());
                 int r = (row == null) ? 0 : row;
                 int c = (col == null) ? 0 : col;
-
-                Button btn = (Button) event.getSource();
-                int winner = play(r,c,USER_PLAYER,btn);
-
+                int winner = Integer.MIN_VALUE;
+                if(stageData.charAt(0) == 'B') {
+                    Button btn = (Button) event.getSource();
+                    winner = play(r, c, USER_PLAYER, btn);
+                }else {
+                    Button btn = (Button) event.getSource();
+                    String xOrO = lblPlayer.getText().split(" ")[1];
+                    if (xOrO.charAt(0) == 'X')
+                        btn.setGraphic(Xview);
+                    else
+                        btn.setGraphic(Oview);
+                    btn.setDisable(true);
+                    buttonArrayCreator(r, c, xOrO);
+                    winner = game.getWinner(r, c, GAME_SIZE, xOrO, buttonArray);
+                    setPlayer(game.getNextPlayer(xOrO));
+                }
                 if (game.isGameOver()) {
                     gameOverWindow(winner);
                 } else {
-                    winner = playPC();
+                    if(stageData.charAt(0) == 'B')
+                        winner = playPC();
 
                     if (game.isGameOver()) {
                         gameOverWindow(winner);
@@ -146,7 +162,7 @@ public class TicTacViewController implements Initializable {
     {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/WinnerScreen.fxml")).load();
         Stage stage = ((Stage) btnNewGame.getScene().getWindow());
-        stage.setUserData(winner);
+        stage.setUserData(winner+" "+stage.getUserData().toString());
         stage.setScene(new Scene(root));
         stage.setTitle("Menu");
 

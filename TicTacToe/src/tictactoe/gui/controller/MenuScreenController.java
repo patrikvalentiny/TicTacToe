@@ -23,6 +23,7 @@ public class MenuScreenController extends Application {
     private void actionPVE(ActionEvent actionEvent) throws IOException {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml")).load();
         Stage stage = ((Stage) btnPVE.getScene().getWindow());
+        stage.setUserData("B");
         stage.setScene(new Scene(root));
         stage.setTitle("Player vs AI");
     }
@@ -30,6 +31,7 @@ public class MenuScreenController extends Application {
     private void actionPVP(ActionEvent actionEvent) throws IOException {
         Parent root = new FXMLLoader(TicTacToe.class.getResource("views/TicTacView.fxml")).load();
         Stage stage = ((Stage) btnPVE.getScene().getWindow());
+        stage.setUserData("P");
         stage.setScene(new Scene(root));
         stage.setTitle("Player vs Player");
     }
