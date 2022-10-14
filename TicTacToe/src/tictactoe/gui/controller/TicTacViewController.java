@@ -155,7 +155,7 @@ public class TicTacViewController implements Initializable {
         Button btn = ((Button) gridPane.getChildren().get(arr[1]*3 + arr[0]));
         play(arr[0],arr[1], PC_PLAYER, btn);
     }
-    private void play(int r, int c, String player, Button btn) throws FileNotFoundException {
+    private void play(int r, int c, String player, Button btn) throws Exception {
         if (player.equals("X")){
             ImageView Xview = new ImageView(new Image(new FileInputStream("TicTacToe/src/tictactoe/gui/images/X.png")));
             btn.setGraphic(Xview);
