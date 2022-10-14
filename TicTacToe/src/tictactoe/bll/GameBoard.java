@@ -149,7 +149,7 @@ public class GameBoard implements IGameModel {
             for (int col = 0; col < 3; col++) {
                 if (board[row][col].equals("")) {
                     board[row][col] = "O";
-                    int moveValue = miniMax(board, 6, false);
+                    int moveValue = miniMax(board, 7, false);
                     //System.out.println(moveValue);
                     //System.out.println(row + " " + col);
                     board[row][col] = "";
@@ -189,7 +189,6 @@ public class GameBoard implements IGameModel {
             }
             rowSum = 0;
         }
-
         // Check columns for winner.
         for (int col = 0; col < bWidth; col++) {
             for (int row = 0; row < bWidth; row++) {
@@ -203,7 +202,6 @@ public class GameBoard implements IGameModel {
             }
             rowSum = 0;
         }
-
         // Check diagonals for winner.
         // Top-left to bottom-right diagonal.
         for (int i = 0; i < bWidth; i++) {
